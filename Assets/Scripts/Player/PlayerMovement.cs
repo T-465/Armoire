@@ -91,10 +91,12 @@ public class PlayerMovement : MonoBehaviour
             anim.SetBool("Jumping", false);
             isJumping=false;
             isDoubleJumping = false;
+            anim.SetBool("DoubleJumping", false);
         }
         else
         {
             isJumping = true;
+            anim.SetBool("Jumping", true);
         }
 
     }
