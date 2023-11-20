@@ -2557,7 +2557,7 @@ Transform:
   m_GameObject: {fileID: 767767974}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 94.61175, y: 1.1434588, z: -0.36805588}
+  m_LocalPosition: {x: 181.09, y: 1.1434588, z: -0.36805588}
   m_LocalScale: {x: 1.93, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -46968,6 +46968,7 @@ MonoBehaviour:
   groundCheckCircle: 0.3
   jumpTime: 0.225
   jumpTimeCounter: 0
+  canDoubleJump: 0
   playercollisions: {fileID: 1792009804}
 --- !u!95 &1792009803
 Animator:

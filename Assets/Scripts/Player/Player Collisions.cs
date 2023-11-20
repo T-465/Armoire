@@ -16,11 +16,16 @@ public class PlayerCollisions : MonoBehaviour
     public HUD hud;
     public bool swordcollected;
 
+    //player movement class 
+    private PlayerMovement playerMovement;
+
+    private void Awake()
+    {
+        //get the playermovement class reference
+        playerMovement = gameObject.GetComponent<PlayerMovement>();
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
-
-       
-
     {
         swordcollected = false;
 
@@ -39,23 +44,16 @@ public class PlayerCollisions : MonoBehaviour
             Destroy(collision.gameObject);
 
             swordcollected = true;
+
+            //call the playermovement class to set doublejump true when sword is collected
+            playerMovement.canDoubleJump = true;
+            
         }
 
-
+        //update the UI
         hud.UpdateInventoryUI(collision.gameObject.tag);
 
-        
-
-
-
+       
     }
-
-    
-
-
-
-
-
-
-    
+  
 }

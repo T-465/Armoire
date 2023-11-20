@@ -24,7 +24,23 @@ public class PlayerMovement : MonoBehaviour
     public float jumpTimeCounter;
     private bool isJumping;
     private Animator anim;
-    private bool canDoubleJump;
+    public bool canDoubleJump;
+
+    // other script reference
+    public PlayerCollisions playercollisions;
+
+
+    void Start()
+    {
+        bool swordcollected = playercollisions.swordcollected;
+
+        if (swordcollected == true)
+        {
+            canDoubleJump = true;
+            Debug.Log(canDoubleJump);
+
+        }
+    }
 
     void Update()
     {
@@ -113,13 +129,13 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        // Double Jump
+        // Double Jump +  Double Jump animator
          if (Input.GetButtonDown("Jump") && canDoubleJump)
         {
-            playerRb.velocity = Vector2.up * jumpForce;
-            
+            playerRb.velocity = Vector2.up * jumpForce * 2;
 
-            canDoubleJump = false;
+            anim.SetBool("Double Jumping", true);
+
         }
 
     }
@@ -131,19 +147,9 @@ public class PlayerMovement : MonoBehaviour
 
 
     
-       // other script reference
-        public PlayerCollisions playercollisions;
 
-        void Start()
-        {
-            bool swordcollected = playercollisions.swordcollected;
 
-            if (swordcollected == true)
-            {
-               canDoubleJump = true;
 
-            }
-        }
 
 
 }
