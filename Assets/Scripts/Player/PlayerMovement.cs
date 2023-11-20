@@ -16,15 +16,15 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce;
 
     public LayerMask groundLayer;
-    private bool isGrounded;
+    public bool isGrounded;
     public Transform feetPosition;
     public float groundCheckCircle;
 
-    public float jumpTime = 0.35f;
-    public float jumpTimeCounter;
-    private bool isJumping;
+    public bool isJumping;
+    public bool isDoubleJumping;
     private Animator anim;
     public bool canDoubleJump;
+    public float jumpMultiplier = 1;
 
     // other script reference
     public PlayerCollisions playercollisions;
@@ -32,110 +32,69 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        bool swordcollected = playercollisions.swordcollected;
-
-        if (swordcollected == true)
-        {
-            canDoubleJump = true;
-            Debug.Log(canDoubleJump);
-
-        }
+        anim = GetComponent<Animator>();
     }
 
     void Update()
     {
-        anim = GetComponent<Animator>();
-
-
+        //get the horizontal input from the input manager
         input = Input.GetAxisRaw("Horizontal");
+        Debug.Log("Input: " + input);
 
-        if (input < 0)
+        //left movement animator and sprite
+        if (input < -0.05f)
         {
             spriteRenderer.flipX = true;
+            anim.SetBool("Running", true);
 
         }
-        else if (input > 0)
+        //right movement animator and sprite
+        else if (input > 0.05f)
         {
             spriteRenderer.flipX = false;
-        }
-
-        //  Running Animator
-
-        if (input > 0)
-        {
             anim.SetBool("Running", true);
         }
-        else if (input < 0)
-        {
-            anim.SetBool("Running", true);
-        }
-        else 
+        //not running
+        else
         {
             anim.SetBool("Running", false);
-
         }
-
-
 
 
 
         // check for ground
-
         isGrounded = Physics2D.OverlapCircle(feetPosition.position, groundCheckCircle, groundLayer);
 
 
 
         if (isGrounded == true && Input.GetButtonDown("Jump"))
         {
-            isJumping = true;
-            jumpTimeCounter = jumpTime;
+
+            Debug.Log("Single Jump" + isJumping);
             playerRb.velocity = Vector2.up * jumpForce;
-
-        }
-
-        if (Input.GetButton("Jump") && isJumping == true)
-        {
-            if (jumpTimeCounter > 0)
-            {
-                playerRb.velocity = Vector2.up * jumpForce;
-                jumpTimeCounter -= Time.deltaTime;
-
-            }
-            
-            else 
-            { 
-                isJumping = false;
-            
-            }
-
-        }
-
-        if (Input.GetButtonUp("Jump"))
-        {
-            isJumping = false;
-
-        }
-
-        // Jumping Animator
-        if (isJumping == true)
-        {
             anim.SetBool("Jumping", true);
 
+            Debug.Log("Single Jump");
         }
-        else if (isJumping == false)
+
+        if (Input.GetButtonDown("Jump") && isJumping == true && isDoubleJumping == false && canDoubleJump)
+        {
+            isDoubleJumping = true;
+            playerRb.velocity = Vector2.up * (jumpForce * jumpMultiplier);
+            anim.SetBool("DoubleJumping", true);
+
+            Debug.Log("Double Jump");
+        }
+
+       if (isGrounded)
         {
             anim.SetBool("Jumping", false);
-
+            isJumping=false;
+            isDoubleJumping = false;
         }
-
-
-        // Double Jump +  Double Jump animator
-         if (Input.GetButtonDown("Jump") && canDoubleJump)
+        else
         {
-            playerRb.velocity = Vector2.up * jumpForce * 2;
-
-            anim.SetBool("Double Jumping", true);
-
+            isJumping = true;
         }
 
     }
