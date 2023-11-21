@@ -39,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
     {
         //get the horizontal input from the input manager
         input = Input.GetAxisRaw("Horizontal");
-        Debug.Log("Input: " + input);
 
         //left movement animator and sprite
         if (input < -0.05f)

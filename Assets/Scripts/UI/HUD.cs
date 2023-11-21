@@ -19,8 +19,6 @@ public class HUD : MonoBehaviour
     }
     public void UpdateInventoryUI(string itemTag)
     {
-        Debug.Log("Update Inventory:  " + itemTag);
-
 
         // sword added to hud
         if (itemTag == "Sword")
