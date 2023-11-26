@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Spikes
   - Sword
+  - Win
   layers:
   - Default
   - TransparentFX

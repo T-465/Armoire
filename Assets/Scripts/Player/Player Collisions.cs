@@ -15,6 +15,8 @@ public class PlayerCollisions : MonoBehaviour
 
     public HUD hud;
     public bool swordcollected;
+    public Text Win;
+
 
     //player movement class 
     private PlayerMovement playerMovement;
@@ -29,13 +31,18 @@ public class PlayerCollisions : MonoBehaviour
     {
         swordcollected = false;
 
+        //end of level reached
+        if (collision.gameObject.tag == "Win")
+        {
+            Win.gameObject.SetActive(true);
+            Time.timeScale = 0;
+        }
 
-       if (collision.gameObject.tag == "Spikes")
+        //restart if hit spikes
+        if (collision.gameObject.tag == "Spikes")
         {
             Destroy(gameObject);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
-
         }
         if (collision.gameObject.tag =="Sword")
         {
@@ -47,7 +54,6 @@ public class PlayerCollisions : MonoBehaviour
 
             //call the playermovement class to set doublejump true when sword is collected
             playerMovement.canDoubleJump = true;
-            
         }
 
         //update the UI
