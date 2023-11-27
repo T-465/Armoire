@@ -15,8 +15,8 @@ public class PlayerCollisions : MonoBehaviour
 
     public HUD hud;
     public bool swordcollected;
-    public Text Win;
-
+    public GameObject Wintext;
+    public AudioSource WinSound2;
 
     //player movement class 
     private PlayerMovement playerMovement;
@@ -34,13 +34,16 @@ public class PlayerCollisions : MonoBehaviour
         //end of level reached
         if (collision.gameObject.tag == "Win")
         {
-            Win.gameObject.SetActive(true);
+            Wintext.gameObject.SetActive(true);
+            Debug.Log("End Reached");
+            WinSound2.Play();
             Time.timeScale = 0;
         }
 
         //restart if hit spikes
         if (collision.gameObject.tag == "Spikes")
         {
+           
             Destroy(gameObject);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
