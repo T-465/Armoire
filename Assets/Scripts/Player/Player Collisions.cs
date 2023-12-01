@@ -17,7 +17,8 @@ public class PlayerCollisions : MonoBehaviour
     public bool swordcollected;
     public GameObject Wintext;
     public AudioSource WinSound2;
-
+    public AudioSource Item1;
+    public AudioSource music;
     //player movement class 
     private PlayerMovement playerMovement;
 
@@ -38,6 +39,7 @@ public class PlayerCollisions : MonoBehaviour
             Debug.Log("End Reached");
             WinSound2.Play();
             Time.timeScale = 0;
+            music.Pause();
         }
 
         //restart if hit spikes
@@ -52,7 +54,7 @@ public class PlayerCollisions : MonoBehaviour
             Debug.Log("Sword Collected");
             //destroy the sword game object
             Destroy(collision.gameObject);
-
+            Item1.Play();
             swordcollected = true;
 
             //call the playermovement class to set doublejump true when sword is collected
