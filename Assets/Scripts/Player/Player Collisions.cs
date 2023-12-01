@@ -20,7 +20,7 @@ public class PlayerCollisions : MonoBehaviour
     public AudioSource Item1;
     public AudioSource music;
     //player movement class 
-    private PlayerMovement playerMovement;
+    public PlayerMovement playerMovement;
 
     private void Awake()
     {
@@ -40,6 +40,7 @@ public class PlayerCollisions : MonoBehaviour
             WinSound2.Play();
             Time.timeScale = 0;
             music.Pause();
+            playerMovement.enabled =false;
         }
 
         //restart if hit spikes
