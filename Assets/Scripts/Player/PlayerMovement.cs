@@ -9,6 +9,11 @@ using static PlayerMovement;
 
 public class PlayerMovement : MonoBehaviour
 {
+    /// <summary>
+    /// This class handles player movement throughout the world and informs the Collisions script
+    /// <summary>
+    /// 
+
     public Rigidbody2D playerRb;
     public float speed;
     public float input;
@@ -65,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(feetPosition.position, groundCheckCircle, groundLayer);
 
 
-
+        // Jump when on ground and Jump is presed
         if (isGrounded == true && Input.GetButtonDown("Jump"))
         {
 
@@ -76,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Single Jump");
         }
 
+        // can double jump in mid air but only once
         if (Input.GetButtonDown("Jump") && isJumping == true && isDoubleJumping == false && canDoubleJump)
         {
             isDoubleJumping = true;
@@ -85,6 +91,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Double Jump");
         }
 
+        // resetting animations
        if (isGrounded)
         {
             anim.SetBool("Jumping", false);

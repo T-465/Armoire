@@ -50,10 +50,11 @@ public class PlayerCollisions : MonoBehaviour
             Destroy(gameObject);
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+
+        // gaining sword and destroying gameobject
         if (collision.gameObject.tag =="Sword")
         {
             Debug.Log("Sword Collected");
-            //destroy the sword game object
             Destroy(collision.gameObject);
             Item1.Play();
             swordcollected = true;
