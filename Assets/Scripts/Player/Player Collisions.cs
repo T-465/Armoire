@@ -66,7 +66,7 @@ public class PlayerCollisions : MonoBehaviour
         //update the UI
         hud.UpdateInventoryUI(collision.gameObject.tag);
 
-       
+      
     }
   
 }
